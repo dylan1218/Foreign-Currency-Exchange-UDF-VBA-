@@ -1,0 +1,42 @@
+Public Function CurrencyTranslate(DateOfExchange As String, BaseCurrency As String, ExchangedCurrency As String) As String
+
+Dim ExchangedCurrencyPos As Integer
+Dim EndOfStringPos As Integer
+Dim LengthOfExchangeRate As Integer
+
+
+' Refer to http://api.fixer.io/ regarding documentation of the API data.
+' Dylan Levine
+DateOfExchange = Format(DateOfExchange, "yyyy-mm-dd") 'Formats a date into the format required by the Fixer.IO API
+
+TextReturn = Application.WorksheetFunction.WebService("http://api.fixer.io/" & DateOfExchange & "?base=" & BaseCurrency & "&symbols=" & ExchangedCurrency)
+ExchangedCurrencyPos = InStr(1, TextReturn, ExchangedCurrency) + 5 'Finds the currency within the returned string from the API, and finds the end of the point where the translation begins
+EndOfStringPos = InStr(1, TextReturn, "}") 'Finsds the numbers of characters at which the string ends
+LengthOfExchangeRate = EndOfStringPos - ExchangedCurrencyPos 'Finds the length of the exchange rate based off of the begining, and ending variables stated above
+
+If UCase(BaseCurrency) = UCase(ExchangedCurrency) Then
+    CurrencyTranslate = "1.00"
+    Else
+    CurrencyTranslate = Mid(TextReturn, ExchangedCurrencyPos, LengthOfExchangeRate) 'Defines the Function and finds the exchange rate wtihin the given API Json string return
+End If
+
+End Function
+
+Sub FunctionDescription()
+
+Dim FuncName As String
+Dim FuncDesc As String
+Dim FuncCat As Variant
+
+Dim ArgDesc(1 To 3) As String '(the function has 3 arguments)
+FuncName = "PERSONAL.XLSB!CurrencyTranslate" '(function's name)
+FuncDesc = "Exchange rate given two currency pairs" '(function's description)
+FuncCat = 1 '(function category)
+ArgDesc(1) = "The date the two currency pairs are exchanged on" '(description of the first argument)
+ArgDesc(2) = "The base currency for which you are translating"
+ArgDesc(3) = "The currency for which you are translating too"
+
+
+Application.MacroOptions Macro:=FuncName, Description:=FuncDesc, Category:=FuncCat, ArgumentDescriptions:=ArgDesc
+
+End Sub
