@@ -1,5 +1,5 @@
 # Foreign-Currency-Exchange-UDF-VBA-
-Translate Fx rates through a user defined function in excel. The three variable inputs required are the Date of Translation in US Date Format, Base Currency (EX: USD), and Exchanged Currency (EX: GBP).
+Translate Fx rates through a user defined function in excel. The three variable inputs required are the Date of Translation in US Date Format (EX: 12/31/2016), Base Currency (EX: USD), and Exchanged Currency (EX: GBP).
 
 Steps to implement in excel file:
 (1) Create a new module under the personal work book tab, and copy and paste both the function script, and other script contained within. The function script will make the function available, the second script will make the function easily accessible under the "Financial" function category, and will provide descriptions. 
