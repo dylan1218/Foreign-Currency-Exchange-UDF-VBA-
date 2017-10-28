@@ -1,1 +1,18 @@
-a
+Sub FunctionDescription()
+
+  Dim FuncName As String
+  Dim FuncDesc As String
+  Dim FuncCat As Variant
+
+  Dim ArgDesc(1 To 3) As String '(the function has 3 arguments)
+  FuncName = "PERSONAL.XLSB!CurrencyTranslate" '(function's name)
+  FuncDesc = "Exchange rate given two currency pairs" '(function's description)
+  FuncCat = 1 '(function category)
+  ArgDesc(1) = "The date the two currency pairs are exchanged on" '(description of the first argument)
+  ArgDesc(2) = "The base currency for which you are translating"
+  ArgDesc(3) = "The currency for which you are translating too"
+
+
+  Application.MacroOptions Macro:=FuncName, Description:=FuncDesc, Category:=FuncCat, ArgumentDescriptions:=ArgDesc
+
+End Sub
